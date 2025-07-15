@@ -310,31 +310,31 @@
 
 为了最大化每次任务的价值沉淀、确保项目历史的可追溯性、并为未来的维护和迭代提供清晰的上下文，所有任务完成后生成的报告**必须**严格遵循以下Markdown模板。这是**非可选的**、**强制性**的流程环节。
 
-##### 报告模板
+#####报告模板
 
 ```markdown
 # 任务完成报告
 
-###### 1. 任务概述 (Task Overview)
+## 1. 任务概述 (Task Overview)
 
 *   **任务ID/名称**: [对任务的简洁描述, 例如: "实现项目质量管理模块"]
 *   **来源**: [说明任务的来源, 例如: "基于《PMP项目管理要素缺失审计报告》", "响应用户关于XX的需求", "修复Issue #123"]
 *   **完成时间**: [YYYY-MM-DD HH:MM:SS]
 *   **Git Commit Hash**: [`git log -1 --pretty=%H` 的输出]
 
-###### 2. 核心实现 (Core Implementation)
+## 2. 核心实现 (Core Implementation)
 
-a. 方法论/设计思路
+###a. 方法论/设计思路
 [简要描述解决问题的核心思路、架构选择或关键决策。例如: "采用了分层设计，将前端组件、状态管理(Context API)和后端API调用完全分离。后端则通过创建新的Service和Controller来处理业务逻辑，并新增了对应的Mongoose Model..."]
 
-b. 主要变更文件 (Key Changed Files)
+###b. 主要变更文件 (Key Changed Files)
 [列出本次任务中**创建**或**核心修改**的文件清单，使用列表格式。]
 *   `CREATED`: `client/src/pages/ProjectDetail/QualityManagement.js`
 *   `MODIFIED`: `server/routes/projects.js`
 *   `MODIFIED`: `server/controllers/projectController.js`
 *   `CREATED`: `server/models/QualityMetric.js`
 
-c. 关键代码片段 (Optional but Recommended)
+###c. 关键代码片段 (Optional but Recommended)
 [如果适用，附上一小段最能体现本次修改核心逻辑的代码。例如，挂载新路由、核心算法、关键的UI渲染逻辑等。]
 
 **示例: 在主路由中挂载新路由**
@@ -346,20 +346,20 @@ const projectRoutes = require('./routes/projects');
 app.use('/api/projects', projectRoutes); // 确保新路由被正确挂载
 // ...
 
-###### 3. 验证与测试 (Verification & Testing)
+## 3. 验证与测试 (Verification & Testing)
 
-a. 验证方法
+###a. 验证方法
 [详细说明你是如何验证功能已正确实现的。例如: "1. 启动后端服务，通过Postman对新增的 `/api/projects/:id/quality` GET/POST端点进行测试。 2. 启动前端应用，访问项目详情页，确认'质量管理'选项卡出现且可点击。 3. 在前端页面上执行完整的CRUD操作，并通过浏览器开发者工具的网络(Network)和控制台(Console)面板监控API请求与响应是否正确，有无错误输出。"]
 
-b. 测试结果
+###b. 测试结果
 [明确描述验证的结果。例如: "1. Postman测试显示，所有端点均返回预期的状态码(200/201)和数据结构。 2. 前端页面功能符合预期，数据展示正确，表单提交后能成功刷新列表。 3. 控制台无任何与本次修改相关的错误或警告。"]
 
-###### 4. 影响与风险评估 (Impact & Risk Assessment)
+## 4. 影响与风险评估 (Impact & Risk Assessment)
 
 *   **正面影响**: [描述此任务完成带来的好处。例如: "成功为PMP系统补全了核心的质量管理功能，满足了审计要求。"，"修复了导致用户无法登录的严重BUG。"]
 *   **潜在风险/后续工作**: [指出任何潜在的风险、依赖关系或必要的后续步骤。例如: "该功能依赖于外部数据分析服务，若该服务中断，则图表将无法显示。"，"下一步需要为该模块补充单元测试。"，"需要更新用户手册中关于项目详情页的章节。"]
 
-###### 5. 自我评估与学习 (Self-Assessment & Learning)
+## 5. 自我评估与学习 (Self-Assessment & Learning)
 
 *   **遇到的挑战**: [可选，描述在任务中遇到的具体困难。例如: "在整合旧有API时，发现其数据格式与新组件不兼容，花费了额外时间进行数据转换。"]
 *   **学到的教训**: [从本次任务中提炼出的、可用于指导未来工作的关键经验。例如: "未来在创建新功能时，必须优先定义好前后端的数据契约，避免后期集成时出现不匹配问题。"，"对于核心模块的修改，必须先进行本地完整回归测试，再提交代码。"]
