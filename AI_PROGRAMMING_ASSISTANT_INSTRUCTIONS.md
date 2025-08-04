@@ -169,7 +169,7 @@
         *   **零容忍原则**: **必须**确保命令以退出码`0`成功结束。任何`error`级别的输出都**必须**被视为构建失败和交付阻塞。
         *   **责任与修复**: 如果出现任何错误，你**必须**立即暂停交付流程，返回到实施阶段，定位并修复这些错误，然后重新执行本阶段的所有验证步骤。**严禁**带着任何已知构建或Lint错误交付代码。
     3.  **自动化收尾 (追溯)**：在以上所有验证全部通过后，**必须**执行以下自动化流程：
-        *   调用`mcp_mcp-datetime_get_datetime`工具获取精确时间，并严格遵循 **`11. 任务完成报告规范`** 中定义的结构和要求，在 `progress report/` 目录下创建报告文件 (`yyyymmddhhmmss_任务概述.md`)。
+        *   调用`mcp_mcp-datetime_get_datetime`工具获取精确时间，并严格遵循 **`12. 任务完成报告规范`** 中定义的结构和要求，在 `progress report/` 目录下创建报告文件 (`yyyymmddhhmmss_任务概述.md`)。
         *   自动执行 Git 操作，将变更 `add`, `commit`, 并 `push` 到 `main` 分支。
 
 ---
@@ -506,13 +506,13 @@ app.use('/api/projects', projectRoutes); // 确保新路由被正确挂载
 
 为将大型、复杂的任务从模糊的意图转化为清晰、可执行、可追溯的工程计划，并确保任务在多次对话、多个工作日中保持绝对的焦点和连续性，你**必须**在启动任何大型任务前，创建一份严格遵循以下规范的“规划蓝图”。
 
-##### A. 使命与定位 (Mission & Positioning)
+**A. 使命与定位 (Mission & Positioning)**
 
 *   **唯一真理来源 (Single Source of Truth)**: 蓝图是整个任务生命周期内的**最高指导纲领**和**唯一真理来源**。它的权威性高于任何临时的对话记忆。
 *   **跨会话上下文的核心 (Core of Cross-Session Context)**: 蓝图是解决AI“失忆症”的终极武器。它将任务的战略意图、技术方案、进度和风险**持久化**。在任何一次新的对话开始时，你**必须**首先回顾相关蓝图，以无缝衔接之前的工作，确保任务的连续性和一致性。
 *   **异步协作的契约 (Contract for Asynchronous Collaboration)**: 蓝图是AI与用户之间关于“做什么”和“如何做”的明确契约，确保双方对任务范围和路径有共同的理解。
 
-##### B. 启动条件 (Triggering Conditions)
+**B. 启动条件 (Triggering Conditions)**
 
 当满足以下**任何一条**标准时，**必须**启动蓝图规划流程，**严禁**直接进入实施阶段：
 1.  **任务复杂度**: 预计需要创建或修改超过 **3个** 独立的文件。
@@ -520,13 +520,13 @@ app.use('/api/projects', projectRoutes); // 确保新路由被正确挂载
 3.  **架构性影响**: 任务涉及新增或修改数据库模型、核心API、认证逻辑或任何共享状态管理（如Context, Redux Store）。
 4.  **新功能模块**: 任务是关于实现一个全新的、用户可感知的功能模块。
 
-##### C. 文件与状态管理 (File & State Management)
+**C. 文件与状态管理 (File & State Management)**
 
 *   **位置**: 必须存储在项目根目录的 `plan report/` 目录下。
 *   **命名**: 必须严格遵循 `YYYYMMDDHHMMSS_任务简述.md` 格式。
 *   **状态管理**: 蓝图自身也需要一个生命周期。在文件名中，或文件顶部，必须明确标注其当前状态：`[规划中]`, `[进行中]`, `[已完成]`, `[已归档]`。AI有责任在任务进展的关键节点更新此状态。
 
-##### D. 蓝图模板 (Blueprint Template)
+**D. 蓝图模板 (Blueprint Template)**
 
 所有规划蓝图**必须**严格遵循以下Markdown结构和内容要求。
 
@@ -535,13 +535,56 @@ app.use('/api/projects', projectRoutes); // 确保新路由被正确挂载
 *   **状态**: [规划中]
 
 ## 1. 核心目标与验收标准 (Core Objective & Acceptance Criteria)
-... (此部分与第一版草案相同) ...
+
+### a. 核心目标 (Core Objective)
+*   [用一句话清晰定义任务最终要达成的、**可衡量的业务价值或技术目标**。这是所有后续决策的最高准-则。]
+*   **示例**: 为PMP系统补全一个完整的、可独立操作的项目质量管理功能，以满足审计报告中关于“过程改进”的要求。
+
+### b. 验收标准 (Acceptance Criteria)
+*   [列出一个清晰的、可被**用户视角**验证的清单。当所有这些标准都满足时，任务才算完成。]
+*   **示例**:
+    *   `[ ]` 用户可以在项目详情页看到一个名为“质量管理”的新选项卡。
+    *   `[ ]` 用户可以在该选项卡下，对预设的质量指标（如“代码覆盖率”、“Bug密度”）进行增删改查(CRUD)操作。
+    *   `[ ]` 所有操作都必须通过API持久化到数据库中，刷新页面后数据不会丢失。
+    *   `[ ]` 前端页面必须能够响应式地处理API的成功与失败状态（如显示加载、错误提示）。
 
 ## 2. 现状分析与复用性尽职调查 (Current State Analysis & Reuse Due Diligence)
-... (此部分与第一版草案相同) ...
+
+*   [**此为强制部分**。在规划任何新东西之前，必须先对现有代码库进行“考古”。]
+*   **示例**:
+    *   **`a. 复用性尽职调查`**:
+        *   **搜索关键词**: `quality`, `metric`, `project api`, `project controller`
+        *   **搜索范围**: `client/src/`, `server/`
+        *   **发现与结论**:
+            *   在 `server/controllers/projectController.js` 中发现了 `getProjectDetails` 方法，但没有与质量管理相关的功能。
+            *   在 `client/src/components/` 中未发现可复用的通用数据表格或表单组件。
+            *   **结论**: 本次任务需要创建全新的前后端模块，可复用性低。
+    *   **`b. 潜在影响分析`**:
+        *   本次修改将向 `projects` 数据库模型中新增内嵌文档，需要进行数据库迁移或兼容性处理。
+        *   将在项目详情页增加一个API调用，可能会轻微影响页面初始加载性能。
 
 ## 3. 技术方案与架构设计 (Technical Approach & Architecture Design)
-... (此部分与第一版草案相同) ...
+
+*   [描述你计划采用的技术栈、设计模式、关键算法或核心决策。]
+*   **示例**:
+    *   **后端**:
+        *   在 `Project` Mongoose模型中新增一个 `qualityMetrics: [QualityMetricSchema]` 数组字段。
+        *   创建新的 `server/controllers/qualityController.js` 和 `server/routes/qualityRoutes.js` 来专门处理与质量相关的CRUD逻辑。
+        *   路由将设计为嵌套路由，如 `POST /api/projects/:projectId/quality-metrics`。
+    *   **前端**:
+        *   使用React Context API (`QualityContext`) 在模块内部管理状态，避免污染全局状态。
+        *   创建一系列高内聚的原子组件 (`MetricTable`, `MetricForm`, `DeleteConfirmDialog`)。
+        *   所有API调用将封装在 `client/src/api/qualityApi.js` 文件中。
+    *   **(可选) 架构图 (Architecture Diagram)**:
+        *   [如果逻辑复杂，可以使用Mermaid图来可视化组件关系或数据流。]
+        ` ``mermaid
+        graph TD
+            A[用户操作] --> B(QualityManagement.js);
+            B --> C{QualityContext};
+            B --> D[qualityApi.js];
+            D --> E(后端API);
+            E --> F(MongoDB);
+        ` ``
 
 ## 4. 任务分解与上下文锚点 (Task Breakdown & Context Anchors)
 
@@ -558,8 +601,12 @@ app.use('/api/projects', projectRoutes); // 确保新路由被正确挂载
         *   ...
 
 ## 5. 风险评估与应对策略 (Risk Assessment & Mitigation Plan)
-... (此部分与第一版草案相同) ...
-```
 
+*   [识别潜在的技术或逻辑风险，并提前规划应对措施。]
+*   **示例**:
+    *   **风险1**: 并发修改。多个用户可能同时修改同一项目的质量指标。
+        *   **应对**: 当前版本暂不处理，标记为V2功能。将在API层面实现基于文档版本的乐观锁。
+    *   **风险2**: 性能问题。如果单个项目的质量指标过多，可能导致项目文档过大。
+        *   **应对**: 在业务逻辑中限制单个项目的指标数量上限为50。
 ---
 
